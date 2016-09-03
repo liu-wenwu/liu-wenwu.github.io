@@ -1,0 +1,758 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="开源,AR,Unity," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="项目直达 ：    ARUnity
+关于ARUnity是用Unity来实现增强现实（Augmented Reality）的简单框架。本框架面向AR初学者，对AR感兴趣并想了解其原理的同学们。框架目前仅支持标记识别，win32 x86平台，标定系统待完成，摄像机内参使用默认的参数。麻雀虽小，但五脏俱全。下一步计划是完善框架-&amp;gt;加入自然识别（Natural Feature Tracking）-&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARUnity Document">
+<meta property="og:url" content="http://yoursite.com/2016/09/01/opensource_arunity/index.html">
+<meta property="og:site_name" content="文武的学习笔记">
+<meta property="og:description" content="项目直达 ：    ARUnity
+关于ARUnity是用Unity来实现增强现实（Augmented Reality）的简单框架。本框架面向AR初学者，对AR感兴趣并想了解其原理的同学们。框架目前仅支持标记识别，win32 x86平台，标定系统待完成，摄像机内参使用默认的参数。麻雀虽小，但五脏俱全。下一步计划是完善框架-&amp;gt;加入自然识别（Natural Feature Tracking）-&amp;">
+<meta property="og:image" content="http://yoursite.com/images/structure_diagram.png">
+<meta property="og:updated_time" content="2016-09-02T02:41:54.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARUnity Document">
+<meta name="twitter:description" content="项目直达 ：    ARUnity
+关于ARUnity是用Unity来实现增强现实（Augmented Reality）的简单框架。本框架面向AR初学者，对AR感兴趣并想了解其原理的同学们。框架目前仅支持标记识别，win32 x86平台，标定系统待完成，摄像机内参使用默认的参数。麻雀虽小，但五脏俱全。下一步计划是完善框架-&amp;gt;加入自然识别（Natural Feature Tracking）-&amp;">
+<meta name="twitter:image" content="http://yoursite.com/images/structure_diagram.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/01/opensource_arunity/"/>
+
+  <title> ARUnity Document | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">文武的学习笔记</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">格物致知 知行合一</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ARUnity Document
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T11:21:37+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开源/" itemprop="url" rel="index">
+                    <span itemprop="name">开源</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/opensource_arunity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/opensource_arunity/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>项目直达 ： <i class="icon icon-github icon-lg"></i>   <a href="https://github.com/liu-wenwu/ARUnity" target="_blank" rel="external">ARUnity</a></p>
+<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>ARUnity是用Unity来实现增强现实（Augmented Reality）的简单框架。本框架面向AR初学者，对AR感兴趣并想了解其原理的同学们。框架目前仅支持标记识别，win32 x86平台，标定系统待完成，摄像机内参使用默认的参数。麻雀虽小，但五脏俱全。下一步计划是完善框架-&gt;加入自然识别（Natural Feature Tracking）-&gt;融合IMU-&gt;加入SLAM。</p>
+<a id="more"></a>
+<h2 id="现况与展望"><a href="#现况与展望" class="headerlink" title="现况与展望"></a>现况与展望</h2><p>在这个领域，目前世界上商用效果最好的当属高通的Vuforia SDK（被PTC收购），其次是Metaio SDK（被Apple收购）。当然国内也有几家SDK公司，我所了解的真正掌握源代码的公司有亮风台（NFT，QQ AR采用该公司SDK）、EasyAR（IMU+NFT），VoidAR（NFT+PTAMM），这三个公司的SDK全部基于OpenCV编写，不要问我为什么知道这些公司的细节，其实反编译一下就能看出来[滑稽]。最近比较火的游戏《口袋妖怪》是采用GPS+IMU的技术。虽然AR表面上很热，但其实目前发展其实并不乐观，国内唯一能找到盈利点的AR应用当属AR涂涂乐（采用Vuforia SDK所开发）了，其实大部分开发者都处于十分茫然的状态。AR未来的发展方向将会是深度学习+SLAM，越来越依靠GPU、专用算法芯片和相关传感器。未来若干年这几个领域都是热门的研究方向，各大公司也亟需这样的人才。加油吧，各位！</p>
+<h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><ol>
+<li>OpenCV</li>
+<li>Unity基础</li>
+<li>计算机视觉基础</li>
+<li>OpenGL基础</li>
+</ol>
+<h3 id="开发语言"><a href="#开发语言" class="headerlink" title="开发语言"></a>开发语言</h3><p><code>C++ C#</code></p>
+<h3 id="软件版本"><a href="#软件版本" class="headerlink" title="软件版本"></a>软件版本</h3><ol>
+<li>OpenCV（32-bit，github最新代码编译）</li>
+<li>Unity 5.4.0f3 (32-bit)</li>
+<li>Visual Studio 2013</li>
+</ol>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ol>
+<li>下载: <code>git clone https://github.com/liu-wenwu/ARUnity.git</code>。</li>
+<li>使用Visual Studio 2013打开工程文件<code>Plugins/win32/arunity.sln</code>。</li>
+<li>配置工程 x86 &amp; release,编译成功将生成Unity插件<code>Plugins/win32/bin/x86/arunity.dll</code>,拷贝该文件到文件夹 <code>Unity/ARUnity/Assets/Plugins/x86</code>。</li>
+<li>子项目 <code>test</code> 用来测试算法和接口，可以打开运行.</li>
+<li>打开 Unity 5.4.0f3 (32-bit),点击 <code>OPEN</code>，选择项目文件夹 <code>Unity/ARUnity</code>。</li>
+<li>在Unity项目文件管理器中打开场景文件<code>test.unity</code>。</li>
+<li>确保电脑连接有摄像头.点击play按钮,将打印好的标记放在摄像头的场景中,然后我们会发现一个方块“站在”标记上.</li>
+</ol>
+<h2 id="Unity开发"><a href="#Unity开发" class="headerlink" title="Unity开发"></a>Unity开发</h2><h3 id="ARUnityControllor-唯一必须，可配置"><a href="#ARUnityControllor-唯一必须，可配置" class="headerlink" title="ARUnityControllor (唯一必须，可配置)"></a>ARUnityControllor (<code>唯一必须，可配置</code>)</h3><p>ARUnity控制器，控制算法的启动、停止和参数配置。目前可设置的参数：</p>
+<ol>
+<li>DICT : 标记使用的词典,共有17种。命令规则：DICT_位长度_个数，例DICT_5x5_50表示该词典的标记的长度是5x5 bits，共包含50个单词，单词id的范围是[0,50)。其中DICT_ARUCO_ORIGINAL是5x5 bits,1024 markers。</li>
+</ol>
+<blockquote>
+<pre><code>DICT_4X4_50 = 0,
+DICT_4X4_100,
+DICT_4X4_250,
+DICT_4X4_1000,
+DICT_5X5_50,
+DICT_5X5_100,
+DICT_5X5_250,
+DICT_5X5_1000,
+DICT_6X6_50,
+DICT_6X6_100,
+DICT_6X6_250,
+DICT_6X6_1000,
+DICT_7X7_50,
+DICT_7X7_100,
+DICT_7X7_250,
+DICT_7X7_1000,
+DICT_ARUCO_ORIGINAL
+</code></pre></blockquote>
+<h3 id="VideoQuad-唯一必须，不可配置"><a href="#VideoQuad-唯一必须，不可配置" class="headerlink" title="VideoQuad (唯一必须，不可配置)"></a>VideoQuad (<code>唯一必须，不可配置</code>)</h3><p>相机背景渲染器，从插件中获得相机每帧的数据并渲染。Shader采用自定义的VideoPlaneNoLight，以此去掉光照和阴影的效果。</p>
+<h3 id="VideoCamera-唯一必须，不可配置"><a href="#VideoCamera-唯一必须，不可配置" class="headerlink" title="VideoCamera (唯一必须，不可配置)"></a>VideoCamera (<code>唯一必须，不可配置</code>)</h3><p>相机背景的Unity照相机，正交投影，深度为0，Culling Mask为0(仅第0层对该相机可见)，这里参数设置为相机背景始终适应屏幕尺寸。</p>
+<h3 id="ARCamera-唯一必须，不可配置"><a href="#ARCamera-唯一必须，不可配置" class="headerlink" title="ARCamera (唯一必须，不可配置)"></a>ARCamera (<code>唯一必须，不可配置</code>)</h3><p>AR场景的Unity照相机，透视投影，深度为1（必须保证大于VideoCamera），Culling Mask为Mixed(ARMarker及子物价应放在这里可见的 层)，为了和Unity场景一致，这里在OpenGL投影矩阵上，绕X轴顺时针旋转90°，所以对应的模型矩阵也要做同样的旋转。</p>
+<h3 id="★ARMarker-可多个，id不能重复，可配置"><a href="#★ARMarker-可多个，id不能重复，可配置" class="headerlink" title="★ARMarker (可多个，id不能重复，可配置)"></a>★ARMarker (<code>可多个，id不能重复，可配置</code>)</h3><p>每个唯一标记对应的组件，这个组件的子物价将会增强到对应的现实标记上，固定配置为绕X旋转90°，Scale设为1，位置可任意。例子中子物件是Scale为0.5的方块，在ARMarker的中心，这种比例位置关系在运行时不变。目前可设置的参数：</p>
+<ol>
+<li><code>id</code> 标记的ID，范围在 0~词典的单词数-1.</li>
+<li><code>length</code> 标记的物理尺寸，单位m，和标定系统搭配食用。在使用默认内参时，可随意设置一个合适的值，保证在投影范围内即可。</li>
+<li><code>use backgroud color</code> 使用纯色还是标记图片作为marker的平面背景。</li>
+<li><code>backgroud color</code> 当3被选中时，设置marker背景的颜色。</li>
+</ol>
+<h2 id="算法开发"><a href="#算法开发" class="headerlink" title="算法开发"></a>算法开发</h2><p>本框架目前仅实现了标记的增强现实，可以在此基础上开发其他的AR算法，而不用关心CV矩阵到Unity矩阵的变换，以及其他到Unity的转换工作。程序结构图如下：<br><img src="/images/structure_diagram.png" alt="程序结构图"></p>
+<p>待补充。。。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://blog.csdn.net/aichipmunk/article/details/41489825" target="_blank" rel="external">OpenGL与OpenCV实现增强现实</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="liu-wenwu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="liu-wenwu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开源/" rel="tag">#开源</a>
+          
+            <a href="/tags/AR/" rel="tag">#AR</a>
+          
+            <a href="/tags/Unity/" rel="tag">#Unity</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/08/opensource-musictag/" rel="next" title="音乐文件标签解析库MusicTag开源">
+                <i class="fa fa-chevron-left"></i> 音乐文件标签解析库MusicTag开源
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/01/prog-string-permutation/" rel="prev" title="含有重复字符的字符串的全排列">
+                含有重复字符的字符串的全排列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/opensource_arunity/"
+           data-title="ARUnity Document" data-url="http://yoursite.com/2016/09/01/opensource_arunity/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="liu-wenwu" />
+          <p class="site-author-name" itemprop="name">liu-wenwu</p>
+          <p class="site-description motion-element" itemprop="description">我就是我，不一样的烟火</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liu-wenwu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于"><span class="nav-number">1.</span> <span class="nav-text">关于</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现况与展望"><span class="nav-number">2.</span> <span class="nav-text">现况与展望</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述"><span class="nav-number">3.</span> <span class="nav-text">简述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预备知识"><span class="nav-number">3.1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发语言"><span class="nav-number">3.2.</span> <span class="nav-text">开发语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件版本"><span class="nav-number">3.3.</span> <span class="nav-text">软件版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">3.4.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity开发"><span class="nav-number">4.</span> <span class="nav-text">Unity开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ARUnityControllor-唯一必须，可配置"><span class="nav-number">4.1.</span> <span class="nav-text">ARUnityControllor (唯一必须，可配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VideoQuad-唯一必须，不可配置"><span class="nav-number">4.2.</span> <span class="nav-text">VideoQuad (唯一必须，不可配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VideoCamera-唯一必须，不可配置"><span class="nav-number">4.3.</span> <span class="nav-text">VideoCamera (唯一必须，不可配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARCamera-唯一必须，不可配置"><span class="nav-number">4.4.</span> <span class="nav-text">ARCamera (唯一必须，不可配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#★ARMarker-可多个，id不能重复，可配置"><span class="nav-number">4.5.</span> <span class="nav-text">★ARMarker (可多个，id不能重复，可配置)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法开发"><span class="nav-number">5.</span> <span class="nav-text">算法开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liu-wenwu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liuwenwu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+  
+
+</body>
+</html>

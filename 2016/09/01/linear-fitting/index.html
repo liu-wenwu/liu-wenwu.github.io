@@ -1,0 +1,724 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="直线拟合,最小二乘,RANSAC," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="直线拟合属于比较经典的优化问题了。这里探讨下使用最小二乘拟合和RANSAC两种方法进行拟合。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC">
+<meta property="og:url" content="http://yoursite.com/2016/09/01/linear-fitting/index.html">
+<meta property="og:site_name" content="文武的学习笔记">
+<meta property="og:description" content="直线拟合属于比较经典的优化问题了。这里探讨下使用最小二乘拟合和RANSAC两种方法进行拟合。">
+<meta property="og:image" content="http://yoursite.com/images/linear-fitting-1.png">
+<meta property="og:image" content="http://yoursite.com/images/linear-fitting-2.png">
+<meta property="og:updated_time" content="2016-09-02T07:16:12.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC">
+<meta name="twitter:description" content="直线拟合属于比较经典的优化问题了。这里探讨下使用最小二乘拟合和RANSAC两种方法进行拟合。">
+<meta name="twitter:image" content="http://yoursite.com/images/linear-fitting-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/01/linear-fitting/"/>
+
+  <title> 直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">文武的学习笔记</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">格物致知 知行合一</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T21:26:41+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/linear-fitting/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/linear-fitting/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>直线拟合属于比较经典的优化问题了。这里探讨下使用最小二乘拟合和RANSAC两种方法进行拟合。</p>
+<a id="more"></a>
+<h3 id="最小二乘拟合"><a href="#最小二乘拟合" class="headerlink" title="最小二乘拟合"></a>最小二乘拟合</h3><p>直线的一般式方程：<br>$$ ax + by + c = 0 $$<br>最小二乘拟合时暂不考虑b=0的情况，考虑其斜率方程<br>$$y = kx + b$$<br>设观测样本数为N，观测误差</p>
+<p>$$ e= \sum_{n=1}^N{(kx_i-y_i)^2} $$</p>
+<p>为使e达到最小，分别对k，b求偏导使其等于0</p>
+<p>$$ \frac{\partial e}{\partial k}={k\sum_{i=1}^{N}{x_i^2}}+{b\sum_{i=1}^{N}{x_i}} -{\sum_{i=1}^{N}{x_iy_i}}=0 $$</p>
+<p>$$\frac{\partial e}{\partial b}=k\sum_{i=1}^{N}{x_i}+Nb-\sum_{i=1}^{N}{y_i}=0$$</p>
+<p>求得</p>
+<p>$$k=\frac{\sum_{i=1}^{N}{x_i}\sum_{i=1}^{N}{y_i}-N\sum_{i=1}^{N}{x_iy_i}}{(\sum_{i=1}^{N}{x_i})^2-N\sum_{i=1}^{N}{x_i^2})}$$</p>
+<p>$$k=\frac{\sum_{i=1}^{N}{x_i}\sum_{i=1}^{N}{x_iy_i}-\sum_{i=1}^{N}{y_i}\sum_{i=1}^{N}{x_i^2}}{(\sum_{i=1}^{N}{x_i})^2-N\sum_{i=1}^{N}{x_i^2})}$$</p>
+<h3 id="RANSAC"><a href="#RANSAC" class="headerlink" title="RANSAC"></a>RANSAC</h3><blockquote>
+<p>RANSAC算法的输入是一组观测数据（往往含有较大的噪声或无效点），一个用于解释观测数据的参数化模型以及一些可信的参数。RANSAC通过反复选择数据中的一组随机子集来达成目标。被选取的子集被假设为局内点，并用下述方法进行验证： </p>
+<ol>
+<li>有一个模型适应于假设的局内点，即所有的未知参数都能从假设的局内点计算得出。</li>
+<li>用1中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
+<li>如果有足够多的点被归类为假设的局内点，那么估计的模型就足够合理。</li>
+<li>然后，用所有假设的局内点去重新估计模型（譬如使用最小二乘法），因为它仅仅被初始的假设局内点估计过。</li>
+<li>最后，通过估计局内点与模型的错误率来评估模型。<br>上述过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
+</ol>
+</blockquote>
+<p>步骤：</p>
+<ol>
+<li>任意选择两个点组成直线，计算所有点到该直线的距离，如果小于某个阈值，那么归为内点</li>
+<li>内点个数大于一定数目，采用该模型；否则继续步骤1，直到达到迭代次数。<br>这里没有进行评估模型的步骤，直接根据内点的个数来选择模型。<br>相关公式：</li>
+<li>点$({x_0},{y_0})$到直线$Ax+By+C=0$的距离</li>
+</ol>
+<p>$$ d= \left|\frac{Ax_0+By_0+C}{\sqrt{A^2+B^2}}\right|$$</p>
+<ol>
+<li>已知两点$({x_1},{y_1})$，$({x_2},{y_2})$，可以得到直线的一般式方程$Ax+By+C=0$，其中<br>$$ A=y_2-y_1 $$<br>$$ B=x_1-x_2 $$<br>$$ C=x_2y_1-x_1y_2 $$</li>
+</ol>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line"><span class="keyword">import</span> math</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line"><span class="comment"># 生成的直线参数</span></div><div class="line">k = <span class="number">2.5</span>;</div><div class="line">b = <span class="number">100</span>;</div><div class="line"></div><div class="line">dataN = <span class="number">100</span>;</div><div class="line">noiseN = <span class="number">5</span>;</div><div class="line"></div><div class="line">N = dataN + noiseN;</div><div class="line"></div><div class="line">x = [];</div><div class="line">y = [];</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(dataN):</div><div class="line">    x.append(i);</div><div class="line">    y.append(i * k + b + random.uniform(<span class="number">-50</span>, <span class="number">20</span>));</div><div class="line"></div><div class="line"><span class="comment"># 加入随机点</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(noiseN):</div><div class="line">    x.append(random.uniform(<span class="number">0</span>, <span class="number">200</span>));</div><div class="line">    y.append(random.uniform(<span class="number">0</span>, <span class="number">200</span>));</div><div class="line"></div><div class="line">axes = plt.subplot(<span class="number">211</span>)</div><div class="line">axes.scatter(x, y, s=<span class="number">20</span>, c=<span class="string">'red'</span>)</div><div class="line">plt.ylabel(<span class="string">'Least Squares Fitting'</span>)</div><div class="line"></div><div class="line">axes = plt.subplot(<span class="number">212</span>)</div><div class="line">axes.scatter(x, y, s=<span class="number">20</span>, c=<span class="string">'red'</span>)</div><div class="line">plt.ylabel(<span class="string">'RANSAC'</span>)</div><div class="line"></div><div class="line"><span class="comment"># 最小二乘拟合</span></div><div class="line">sumx = <span class="number">0</span>;</div><div class="line">sumy = <span class="number">0</span>;</div><div class="line">sumx2 = <span class="number">0</span>;</div><div class="line">sumxy = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(N):</div><div class="line">    sumx += x[i];</div><div class="line">    sumy += y[i];</div><div class="line">    sumx2 += x[i] * x[i];</div><div class="line">    sumxy += x[i] * y[i];</div><div class="line"></div><div class="line">lq_k = (sumx * sumy - N * sumxy) / (sumx * sumx - N * sumx2);</div><div class="line">lq_b = (sumx * sumxy - sumy * sumx2) / (sumx * sumx - N * sumx2);</div><div class="line"></div><div class="line">lq_diff = []</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(dataN):</div><div class="line">    y1 = k * x[i] + b</div><div class="line">    y2 = lq_k * x[i] + lq_b</div><div class="line">    lq_diff.append(y2 - y1)</div><div class="line"></div><div class="line">lq_diff_abs = [abs(x) <span class="keyword">for</span> x <span class="keyword">in</span> lq_diff]</div><div class="line">lq_ava_err = sum(lq_diff_abs) / len(lq_diff_abs)</div><div class="line"></div><div class="line">lq_std_err = np.std(lq_diff);</div><div class="line"></div><div class="line">lq_x = [<span class="number">0</span>, N];</div><div class="line">lq_y = [lq_b, lq_k * N + lq_b];</div><div class="line"></div><div class="line">plt.subplot(<span class="number">211</span>)</div><div class="line">plt.plot(lq_x, lq_y, linewidth=<span class="number">3</span>);</div><div class="line">plt.text(<span class="number">0</span>, <span class="number">0</span>, <span class="string">'ava:%f std:%f'</span> % (lq_ava_err, lq_std_err))</div><div class="line"></div><div class="line"><span class="comment"># 随机一致估计拟合</span></div><div class="line">dis_threshold = <span class="number">30.0</span>;</div><div class="line">ransac_iters = <span class="number">50</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span><span class="params">(object)</span>:</span></div><div class="line">    X = <span class="number">0</span></div><div class="line">    Y = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></div><div class="line">        self.X = x</div><div class="line">        self.Y = y</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># ax+by+c</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Line</span><span class="params">(object)</span>:</span></div><div class="line">    a = <span class="number">0</span>;</div><div class="line">    b = <span class="number">0</span>;</div><div class="line">    c = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, p1, p2)</span>:</span></div><div class="line">        self.a = p2.Y - p1.Y</div><div class="line">        self.b = p1.X - p2.X</div><div class="line">        self.c = p2.X * p1.Y - p1.X * p2.Y</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">distance</span><span class="params">(self, p)</span>:</span></div><div class="line">        d = abs((self.a * p.X + self.b * p.Y + self.c) / math.sqrt(self.a * self.a + self.b * self.b))</div><div class="line">        <span class="keyword">return</span> d</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">gety</span><span class="params">(self, x)</span>:</span></div><div class="line">        <span class="keyword">if</span> (abs(self.b) &lt; <span class="number">1e-6</span>):</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> (self.a * x + self.c) / self.b * (<span class="number">-1.0</span>)</div><div class="line"></div><div class="line"></div><div class="line">best_line = <span class="keyword">None</span></div><div class="line">best_count = <span class="number">0</span></div><div class="line">list = range(N)</div><div class="line">best_point_x = []</div><div class="line">best_point_y = []</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(ransac_iters):</div><div class="line">    idx = random.sample(list, <span class="number">5</span>)</div><div class="line"></div><div class="line">    p1 = Point(x[idx[<span class="number">0</span>]], y[idx[<span class="number">0</span>]])</div><div class="line">    p2 = Point(x[idx[<span class="number">1</span>]], y[idx[<span class="number">1</span>]])</div><div class="line">    line = Line(p1, p2);</div><div class="line">    count = <span class="number">0</span>;</div><div class="line"></div><div class="line">    best_point_x.clear()</div><div class="line">    best_point_y.clear()</div><div class="line"></div><div class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(N):</div><div class="line">        p = Point(x[j], y[j])</div><div class="line">        dis = line.distance(p)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (dis &lt; dis_threshold):</div><div class="line">            count = count + <span class="number">1</span></div><div class="line">            best_point_x.append(x[j])</div><div class="line">            best_point_y.append(y[j])</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (count &gt; best_count):</div><div class="line">            best_count = count</div><div class="line">            best_line = line</div><div class="line"></div><div class="line"><span class="keyword">if</span> (best_line != <span class="keyword">None</span>):</div><div class="line">    ransac_x = [<span class="number">0</span>, N];</div><div class="line">    ransac_y = [best_line.gety(<span class="number">0</span>), best_line.gety(N)]</div><div class="line"></div><div class="line">    plt.subplot(<span class="number">212</span>)</div><div class="line">    plt.plot(ransac_x, ransac_y, linewidth=<span class="number">3</span>)</div><div class="line"></div><div class="line">    ransac_diff = []</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(dataN):</div><div class="line">        y1 = k * x[i] + b</div><div class="line">        y2 = best_line.gety(x[i])</div><div class="line">        ransac_diff.append(y2 - y1)</div><div class="line"></div><div class="line">    ransac_diff_abs = [abs(x) <span class="keyword">for</span> x <span class="keyword">in</span> ransac_diff]</div><div class="line">    ransac_ava_err = sum(ransac_diff_abs) / len(ransac_diff_abs)</div><div class="line"></div><div class="line">    ransac_std_err = np.std(ransac_diff);</div><div class="line"></div><div class="line">    plt.text(<span class="number">0</span>, <span class="number">0</span>, <span class="string">'ava:%f std:%f'</span> % (ransac_ava_err, ransac_std_err))</div><div class="line"></div><div class="line">    axes.scatter(best_point_x, best_point_y, s=<span class="number">20</span>, c=<span class="string">'green'</span>)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><h4 id="100正样本，无负样本"><a href="#100正样本，无负样本" class="headerlink" title="100正样本，无负样本"></a>100正样本，无负样本</h4><p><img src="/images/linear-fitting-1.png" alt=""></p>
+<h4 id="100正样本，20负样本"><a href="#100正样本，20负样本" class="headerlink" title="100正样本，20负样本"></a>100正样本，20负样本</h4><p><img src="/images/linear-fitting-2.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="liu-wenwu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="liu-wenwu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/直线拟合/" rel="tag">#直线拟合</a>
+          
+            <a href="/tags/最小二乘/" rel="tag">#最小二乘</a>
+          
+            <a href="/tags/RANSAC/" rel="tag">#RANSAC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/prog-string-permutation/" rel="next" title="含有重复字符的字符串的全排列">
+                <i class="fa fa-chevron-left"></i> 含有重复字符的字符串的全排列
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/linear-fitting/"
+           data-title="直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC" data-url="http://yoursite.com/2016/09/01/linear-fitting/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="liu-wenwu" />
+          <p class="site-author-name" itemprop="name">liu-wenwu</p>
+          <p class="site-description motion-element" itemprop="description">我就是我，不一样的烟火</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liu-wenwu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#最小二乘拟合"><span class="nav-number">1.</span> <span class="nav-text">最小二乘拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RANSAC"><span class="nav-number">2.</span> <span class="nav-text">RANSAC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码"><span class="nav-number">3.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#100正样本，无负样本"><span class="nav-number">4.1.</span> <span class="nav-text">100正样本，无负样本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#100正样本，20负样本"><span class="nav-number">4.2.</span> <span class="nav-text">100正样本，20负样本</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liu-wenwu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liuwenwu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+  
+
+</body>
+</html>

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="字符串,全排列," />
+  <meta name="keywords" content="sobel," />
 
 
 
@@ -84,16 +84,18 @@
 
 
 
-<meta name="description" content="输入一个字符串，里面可能含有重复字符，输出不相同的全排列，输出全排列的个数。">
+<meta name="description" content="Sobel算子是计算机视觉领域的一种重要处理方法。主要用于获得数字图像的一阶梯度，常见的应用和物理意义是边缘检测。在技术上，它是一个离散的一阶差分算子，用来计算图像亮度函数的一阶梯度之近似值。在图像的任何一点使用此算子，将会产生该点对应的梯度矢量或是其法矢量。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="含有重复字符的字符串的全排列">
-<meta property="og:url" content="http://yoursite.com/2016/09/01/prog-string-permutation/index.html">
+<meta property="og:title" content="Sobel算子">
+<meta property="og:url" content="http://yoursite.com/2016/09/03/algo-sobel/index.html">
 <meta property="og:site_name" content="文武的学习笔记">
-<meta property="og:description" content="输入一个字符串，里面可能含有重复字符，输出不相同的全排列，输出全排列的个数。">
-<meta property="og:updated_time" content="2016-09-01T08:37:34.583Z">
+<meta property="og:description" content="Sobel算子是计算机视觉领域的一种重要处理方法。主要用于获得数字图像的一阶梯度，常见的应用和物理意义是边缘检测。在技术上，它是一个离散的一阶差分算子，用来计算图像亮度函数的一阶梯度之近似值。在图像的任何一点使用此算子，将会产生该点对应的梯度矢量或是其法矢量。">
+<meta property="og:image" content="http://yoursite.com/images/algo_sobel.jpg">
+<meta property="og:updated_time" content="2016-09-03T03:43:39.037Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="含有重复字符的字符串的全排列">
-<meta name="twitter:description" content="输入一个字符串，里面可能含有重复字符，输出不相同的全排列，输出全排列的个数。">
+<meta name="twitter:title" content="Sobel算子">
+<meta name="twitter:description" content="Sobel算子是计算机视觉领域的一种重要处理方法。主要用于获得数字图像的一阶梯度，常见的应用和物理意义是边缘检测。在技术上，它是一个离散的一阶差分算子，用来计算图像亮度函数的一阶梯度之近似值。在图像的任何一点使用此算子，将会产生该点对应的梯度矢量或是其法矢量。">
+<meta name="twitter:image" content="http://yoursite.com/images/algo_sobel.jpg">
 
 
 
@@ -114,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/01/prog-string-permutation/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/03/algo-sobel/"/>
 
-  <title> 含有重复字符的字符串的全排列 | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Sobel算子 | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +258,7 @@
             
             
               
-                含有重复字符的字符串的全排列
+                Sobel算子
               
             
           </h1>
@@ -268,8 +270,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-01T16:05:52+08:00" content="2016-09-01">
-              2016-09-01
+            <time itemprop="dateCreated" datetime="2016-09-03T11:10:39+08:00" content="2016-09-03">
+              2016-09-03
             </time>
           </span>
 
@@ -282,8 +284,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/编程题/" itemprop="url" rel="index">
-                    <span itemprop="name">编程题</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -298,8 +300,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/01/prog-string-permutation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/prog-string-permutation/" itemprop="commentsCount"></span>
+                <a href="/2016/09/03/algo-sobel/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/algo-sobel/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -323,11 +325,18 @@
 
       
         <blockquote>
-<p>输入一个字符串，里面可能含有重复字符，输出不相同的全排列，输出全排列的个数。</p>
+<p>Sobel算子是计算机视觉领域的一种重要处理方法。主要用于获得数字图像的一阶梯度，常见的应用和物理意义是边缘检测。在技术上，它是一个离散的一阶差分算子，用来计算图像亮度函数的一阶梯度之近似值。在图像的任何一点使用此算子，将会产生该点对应的梯度矢量或是其法矢量。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先对字符串进行排序，保证输出是按照字母序的。在非重复字符串全排列程序的循环体内，加上一句条件控制，如果不是自我交换的情况时，当前的字符和前一个字符相等，那么就跳过，直到不相等或字符串结束。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">string_permutation_core</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">char</span> *ptr, <span class="keyword">int</span> &amp;count)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (*ptr == <span class="string">'\0'</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str);</div><div class="line">		++count;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> *temp = ptr; *temp != <span class="string">'\0'</span>; ++temp)</div><div class="line">	&#123;</div><div class="line">		<span class="comment">//如果不是自我交换，那么就检查当前字符是不是和前一个字符相等，是的话就跳过</span></div><div class="line">		<span class="comment">// 这样保证了连续重复的字符串只出现一次</span></div><div class="line">		<span class="keyword">if</span> (temp &gt; ptr &amp;&amp; *temp == *(temp - <span class="number">1</span>))</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line"></div><div class="line">		swap(*ptr, *temp);</div><div class="line">		string_permutation_core(str, ptr + <span class="number">1</span>, count);</div><div class="line">		swap(*ptr, *temp);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">string_permutation</span><span class="params">(<span class="keyword">char</span> *str)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (str == <span class="literal">NULL</span>)</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">	<span class="built_in">printf</span>(<span class="string">"result:\n"</span>);</div><div class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">	<span class="comment">//如果要求按照字符序输出，先进行排序</span></div><div class="line">	<span class="built_in">std</span>::sort(str, str + <span class="built_in">strlen</span>(str));</div><div class="line">	string_permutation_core(str, str, count);</div><div class="line"></div><div class="line">	<span class="built_in">printf</span>(<span class="string">"count:%d\n"</span>, count);</div><div class="line">	<span class="keyword">return</span> count;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">char</span> buffer[<span class="number">256</span>];</div><div class="line">	<span class="keyword">while</span> (<span class="built_in">cin</span>.getline(buffer, <span class="number">256</span>))</div><div class="line">		string_permutation(buffer);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="核心公式"><a href="#核心公式" class="headerlink" title="核心公式"></a>核心公式</h2><blockquote>
+<p>该算子包含两组3x3的矩阵，分别为横向及纵向，将之与图像作平面卷积，即可分别得出横向及纵向的亮度差分近似值。如果以A代表原始图像，Gx及Gy分别代表经横向及纵向边缘检测的图像，其公式如下:<br>$$Gx=<br>         \begin{bmatrix}<br>         -1 &amp; 0 &amp; 1 \\<br>         -2 &amp; 0 &amp; 2 \\<br>         -1 &amp; 0 &amp; 1 \\<br>         \end{bmatrix} $$</p>
+<p>$$Gy=<br>         \begin{bmatrix}<br>        -1 &amp; -2 &amp; -1 \\<br>         0 &amp; 0 &amp; 0 \\<br>         1 &amp; 2 &amp; 1 \\<br>         \end{bmatrix} $$</p>
+<p>图像的每一个像素的横向及纵向梯度近似值可用以下的公式结合，来计算梯度的大小。<br>$$G=\sqrt{Gx^2+Gy^2}$$</p>
+<p>然后可用以下公式计算梯度方向。 $$ \Theta = arctan(\frac{Gy}{Gx})$$<br>在以上例子中，如果以上的角度Θ等于零，即代表图像该处拥有纵向边缘，左方较右方暗。</p>
+</blockquote>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><h3 id="sobel-m"><a href="#sobel-m" class="headerlink" title="sobel.m"></a>sobel.m</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="params">[out,grad]</span>  = <span class="title">sobel</span><span class="params">( in ,mode)</span></span></div><div class="line">[m,n,c]=<span class="built_in">size</span>(in);</div><div class="line"><span class="keyword">if</span>(c==<span class="number">3</span>)</div><div class="line">    in=rgb2gray(in);</div><div class="line"><span class="keyword">end</span></div><div class="line">out=<span class="built_in">zeros</span>(m,n);</div><div class="line">grad=<span class="built_in">zeros</span>(m,n);</div><div class="line"></div><div class="line">in=im2double(in);</div><div class="line"></div><div class="line"><span class="keyword">for</span> y =<span class="number">2</span>:m<span class="number">-1</span></div><div class="line">    <span class="keyword">for</span> x =<span class="number">2</span>:n<span class="number">-1</span></div><div class="line">        </div><div class="line">        dx=in(y<span class="number">-1</span>,x+<span class="number">1</span>)-in(y<span class="number">-1</span>,x<span class="number">-1</span>)+<span class="number">2</span>*(in(y,x+<span class="number">1</span>)-in(y,x<span class="number">-1</span>))+in(y+<span class="number">1</span>,x+<span class="number">1</span>)-in(y+<span class="number">1</span>,x<span class="number">-1</span>);</div><div class="line">        dy=in(y+<span class="number">1</span>,x<span class="number">-1</span>)-in(y<span class="number">-1</span>,x<span class="number">-1</span>)+<span class="number">2</span>*(in(y+<span class="number">1</span>,x)-in(y<span class="number">-1</span>,x))+in(y+<span class="number">1</span>,x+<span class="number">1</span>)-in(y<span class="number">-1</span>,x+<span class="number">1</span>);</div><div class="line">        </div><div class="line">        grad(y,x)=<span class="built_in">atan</span>(dy/dx);</div><div class="line">        <span class="keyword">if</span>(mode==<span class="number">0</span>)</div><div class="line">            out(y,x)=<span class="built_in">sqrt</span>(dx*dx+dy*dy);</div><div class="line">        <span class="keyword">elseif</span>(mode==<span class="number">1</span>)</div><div class="line">            out(y,x)=<span class="built_in">abs</span>(dx*dx)+<span class="built_in">abs</span>(dy*dy);</div><div class="line">        <span class="keyword">end</span></div><div class="line">        </div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h3 id="test-m"><a href="#test-m" class="headerlink" title="test.m"></a>test.m</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">close all;</div><div class="line">clear;</div><div class="line"></div><div class="line">img=imread(<span class="string">'lena.jpg'</span>);</div><div class="line"></div><div class="line">subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>);</div><div class="line">imshow(img);</div><div class="line"></div><div class="line">subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>);</div><div class="line">imshow(sobel(img,<span class="number">0</span>));</div><div class="line"></div><div class="line">subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>);</div><div class="line">[res,grad]=sobel(img,<span class="number">1</span>);</div><div class="line">imshow(res);</div></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/algo_sobel.jpg" alt=""></p>
 
       
     </div>
@@ -371,9 +380,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/字符串/" rel="tag">#字符串</a>
-          
-            <a href="/tags/全排列/" rel="tag">#全排列</a>
+            <a href="/tags/sobel/" rel="tag">#sobel</a>
           
         </div>
       
@@ -382,16 +389,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/01/opensource_arunity/" rel="next" title="ARUnity Document">
-                <i class="fa fa-chevron-left"></i> ARUnity Document
+              <a href="/2016/09/01/linear-fitting/" rel="next" title="直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC">
+                <i class="fa fa-chevron-left"></i> 直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/01/linear-fitting/" rel="prev" title="直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC">
-                直线拟合之最小二乘拟合（Least Squares Fitting）和RANSAC <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/04/switch-light/" rel="prev" title="滴滴模拟题之开关灯问题">
+                滴滴模拟题之开关灯问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -418,8 +425,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/01/prog-string-permutation/"
-           data-title="含有重复字符的字符串的全排列" data-url="http://yoursite.com/2016/09/01/prog-string-permutation/">
+      <div class="ds-thread" data-thread-key="2016/09/03/algo-sobel/"
+           data-title="Sobel算子" data-url="http://yoursite.com/2016/09/03/algo-sobel/">
       </div>
     
   </div>
@@ -521,7 +528,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心公式"><span class="nav-number">1.</span> <span class="nav-text">核心公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试代码"><span class="nav-number">2.</span> <span class="nav-text">测试代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sobel-m"><span class="nav-number">2.1.</span> <span class="nav-text">sobel.m</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test-m"><span class="nav-number">2.2.</span> <span class="nav-text">test.m</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li></ol></div>
             
           </div>
         </section>

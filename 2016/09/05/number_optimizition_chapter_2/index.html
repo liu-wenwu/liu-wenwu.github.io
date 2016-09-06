@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="数值优化,学习笔记," />
 
 
 
@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="题目描述git是一种分布式代码管理工具，git通过树的形式记录文件的更改历史，比如： base’&amp;lt;–base&amp;lt;–A&amp;lt;–A’ ^ | — B&amp;lt;–B’ 小米工程师常常需要寻找两个分支最近的分割点，即base.假设git 树是多叉树，请实现一个算法，计算git树上任意两点的最近分割点。 （假设git树节点数为n,用邻接矩阵的形式表示git树：字符串数组matrix包含n个字符串，">
+<meta name="description" content="前言在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：$$\underset{x}{\text{min}}f(x)$$
+其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小米Git">
-<meta property="og:url" content="https://liu-wenwu.github.io/2016/07/20/prog-xiaomigit/index.html">
+<meta property="og:title" content="《数值优化》学习笔记之第二章 无约束最优化基础">
+<meta property="og:url" content="https://liu-wenwu.github.io/2016/09/05/number_optimizition_chapter_2/index.html">
 <meta property="og:site_name" content="文武的学习笔记">
-<meta property="og:description" content="题目描述git是一种分布式代码管理工具，git通过树的形式记录文件的更改历史，比如： base’&amp;lt;–base&amp;lt;–A&amp;lt;–A’ ^ | — B&amp;lt;–B’ 小米工程师常常需要寻找两个分支最近的分割点，即base.假设git 树是多叉树，请实现一个算法，计算git树上任意两点的最近分割点。 （假设git树节点数为n,用邻接矩阵的形式表示git树：字符串数组matrix包含n个字符串，">
-<meta property="og:updated_time" content="2016-07-20T05:16:10.501Z">
+<meta property="og:description" content="前言在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：$$\underset{x}{\text{min}}f(x)$$
+其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x">
+<meta property="og:updated_time" content="2016-09-06T01:41:09.102Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小米Git">
-<meta name="twitter:description" content="题目描述git是一种分布式代码管理工具，git通过树的形式记录文件的更改历史，比如： base’&amp;lt;–base&amp;lt;–A&amp;lt;–A’ ^ | — B&amp;lt;–B’ 小米工程师常常需要寻找两个分支最近的分割点，即base.假设git 树是多叉树，请实现一个算法，计算git树上任意两点的最近分割点。 （假设git树节点数为n,用邻接矩阵的形式表示git树：字符串数组matrix包含n个字符串，">
+<meta name="twitter:title" content="《数值优化》学习笔记之第二章 无约束最优化基础">
+<meta name="twitter:description" content="前言在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：$$\underset{x}{\text{min}}f(x)$$
+其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x">
 
 
 
@@ -114,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="https://liu-wenwu.github.io/2016/07/20/prog-xiaomigit/"/>
+  <link rel="canonical" href="https://liu-wenwu.github.io/2016/09/05/number_optimizition_chapter_2/"/>
 
-  <title> 小米Git | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 《数值优化》学习笔记之第二章 无约束最优化基础 | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +259,7 @@
             
             
               
-                小米Git
+                《数值优化》学习笔记之第二章 无约束最优化基础
               
             
           </h1>
@@ -268,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T13:02:27+08:00" content="2016-07-20">
-              2016-07-20
+            <time itemprop="dateCreated" datetime="2016-09-05T12:29:27+08:00" content="2016-09-05">
+              2016-09-05
             </time>
           </span>
 
@@ -282,8 +285,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/编程题/" itemprop="url" rel="index">
-                    <span itemprop="name">编程题</span>
+                  <a href="/categories/数值优化/" itemprop="url" rel="index">
+                    <span itemprop="name">数值优化</span>
                   </a>
                 </span>
 
@@ -298,8 +301,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/20/prog-xiaomigit/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/20/prog-xiaomigit/" itemprop="commentsCount"></span>
+                <a href="/2016/09/05/number_optimizition_chapter_2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/number_optimizition_chapter_2/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -322,12 +325,16 @@
       
 
       
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>git是一种分布式代码管理工具，git通过树的形式记录文件的更改历史，比如： base’&lt;–base&lt;–A&lt;–A’ ^ | — B&lt;–B’ 小米工程师常常需要寻找两个分支最近的分割点，即base.假设git 树是多叉树，请实现一个算法，计算git树上任意两点的最近分割点。 （假设git树节点数为n,用邻接矩阵的形式表示git树：字符串数组matrix包含n个字符串，每个字符串由字符’0’或’1’组成，长度为n。matrix[i][j]==’1’当且仅当git树种第i个和第j个节点有连接。节点0为git树的根节点。）<br>输入例子:<br><code>[01011,10100,01000,10000,10000],1,2</code></p>
-<p>输出例子:<br><code>1</code></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：<br>$$\underset{x}{\text{min}}f(x)$$</p>
+<p>其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。<br>通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x_2,…$的导数。</p>
 <a id="more"></a>
-<h2 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h2><p>题目的实质是指就是查找树的两个节点的第一个共同祖先。步骤如下：</p>
-<p>１. 由邻接矩阵得到各节点的父节点数组<br>２. 得到两个节点到根节点的路径，翻转路径<br>３. 从头比较两条路径，最后一个相同的节点就是第一个共同祖先</p>
-<h2 id="参考答案"><a href="#参考答案" class="headerlink" title="参考答案"></a>参考答案</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    /**</div><div class="line">     * 返回git树上两点的最近分割点</div><div class="line">     * </div><div class="line">     * @param matrix 接邻矩阵，表示git树，matrix[i][j] == &apos;1&apos; 当且仅当git树中第i个和第j个节点有连接，节点0为git树的跟节点</div><div class="line">     * @param indexA 节点A的index</div><div class="line">     * @param indexB 节点B的index</div><div class="line">     * @return 整型</div><div class="line">     */</div><div class="line">int getSplitNode(vector&lt;string&gt; matrix, int indexA, int indexB) &#123;</div><div class="line">		vector&lt;bool&gt; used(matrix.size(), false);</div><div class="line">		vector&lt;int&gt; node_parent(matrix.size(),-1);</div><div class="line">	</div><div class="line">		queue&lt;int&gt; nums;</div><div class="line">		nums.push(0);</div><div class="line">		node_parent[0] = -1;</div><div class="line">		used[0] = true;</div><div class="line">	</div><div class="line">		while (!nums.empty())</div><div class="line">		&#123;</div><div class="line">			int size = nums.size();</div><div class="line">	</div><div class="line">			for (int i = 0; i &lt; size; ++i)</div><div class="line">			&#123;</div><div class="line">				int n = nums.front(); nums.pop();</div><div class="line">				</div><div class="line">				for (int j = 0; j &lt; matrix[n].size(); ++j)</div><div class="line">				&#123;</div><div class="line">					if (matrix[n][j] == &apos;1&apos; &amp;&amp; !used[j])</div><div class="line">					&#123;</div><div class="line">						node_parent[j] = n;</div><div class="line">						used[j] = true;</div><div class="line">						nums.push(j);</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	</div><div class="line">		vector&lt;int&gt; va;</div><div class="line">		vector&lt;int&gt; vb;</div><div class="line">		</div><div class="line">		while (indexA != -1)</div><div class="line">		&#123;		</div><div class="line">			va.push_back(indexA);</div><div class="line">			indexA = node_parent[indexA];</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		while (indexB != -1)</div><div class="line">		&#123;</div><div class="line">			vb.push_back(indexB);</div><div class="line">			indexB = node_parent[indexB];</div><div class="line">		&#125;</div><div class="line">	</div><div class="line">		reverse(va.begin(),va.end());</div><div class="line">		reverse(vb.begin(), vb.end());</div><div class="line">	</div><div class="line">		int idx = 0;</div><div class="line">		for (int i = 0; i &lt; min(va.size(), vb.size()) ; ++i)</div><div class="line">		&#123;</div><div class="line">			if(va[i] == vb[i])</div><div class="line">				idx = va[i];</div><div class="line">			else </div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		return idx;</div><div class="line">	&#125;    </div><div class="line">&#125;;</div><div class="line"></div></pre></td></tr></table></figure>
+<h2 id="例子-最小二乘拟合"><a href="#例子-最小二乘拟合" class="headerlink" title="例子 最小二乘拟合"></a>例子 <code>最小二乘拟合</code></h2><h1 id="最优解的定义"><a href="#最优解的定义" class="headerlink" title="最优解的定义"></a>最优解的定义</h1><p>全局极小值的定义为：</p>
+<p>$$\text{点} x^° \text{是全局极小值,仅当} f(x^°) \leqslant f(x) , x \in \mathbb{R} $$</p>
+<p>由于我们关于$f$的知识通常只是局部的，因此全局极小值很难去求解。<br>我们无法确定$f$是否在算法无法采样的区域是否有急剧下降。大多数算法只能找到局部极小值。关于局部极小值的定义如下：<br>$$\text{点} x^° \text{是局部极小值,仅当存在}x^°\text{的邻域} \mathbb{N}使得f(x^°)\leqslant f(x) ,  x \in \mathbb{N}<br>$$</p>
+<blockquote>
+<p>原创文章，转载请注明出处。<br>刘文武 2016年9月5日 于 电子科大航空航空学院</p>
+</blockquote>
+
       
     </div>
 
@@ -370,7 +377,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag">#git</a>
+            <a href="/tags/数值优化/" rel="tag">#数值优化</a>
+          
+            <a href="/tags/学习笔记/" rel="tag">#学习笔记</a>
           
         </div>
       
@@ -379,16 +388,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/20/prog-fib-plus/" rel="next" title="斐波拉契加强版">
-                <i class="fa fa-chevron-left"></i> 斐波拉契加强版
+              <a href="/2016/09/04/switch-light/" rel="next" title="滴滴模拟题之开关灯问题">
+                <i class="fa fa-chevron-left"></i> 滴滴模拟题之开关灯问题
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/21/interview-questions-set/" rel="prev" title="面试题合集(C++)">
-                面试题合集(C++) <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/05/number_optimizition_chapter_1/" rel="prev" title="《数值优化》学习笔记之第一章 介绍">
+                《数值优化》学习笔记之第一章 介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -415,8 +424,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/20/prog-xiaomigit/"
-           data-title="小米Git" data-url="https://liu-wenwu.github.io/2016/07/20/prog-xiaomigit/">
+      <div class="ds-thread" data-thread-key="2016/09/05/number_optimizition_chapter_2/"
+           data-title="《数值优化》学习笔记之第二章 无约束最优化基础" data-url="https://liu-wenwu.github.io/2016/09/05/number_optimizition_chapter_2/">
       </div>
     
   </div>
@@ -518,7 +527,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目解析"><span class="nav-number">1.1.</span> <span class="nav-text">题目解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考答案"><span class="nav-number">1.2.</span> <span class="nav-text">参考答案</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子-最小二乘拟合"><span class="nav-number">1.1.</span> <span class="nav-text">例子 最小二乘拟合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最优解的定义"><span class="nav-number">2.</span> <span class="nav-text">最优解的定义</span></a></li></ol></div>
             
           </div>
         </section>

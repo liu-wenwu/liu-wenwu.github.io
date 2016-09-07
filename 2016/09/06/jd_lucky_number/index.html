@@ -93,7 +93,7 @@
 <meta property="og:description" content="题目
 注意K的范围，程序中一定要用long long，用int达不到范围要求。int ： -2147483648～2147483647long long ： -9223372036854775808 ~ 9223372036854775807">
 <meta property="og:image" content="https://liu-wenwu.github.io/images/jd_lucky_numder.jpg">
-<meta property="og:updated_time" content="2016-09-06T03:33:44.908Z">
+<meta property="og:updated_time" content="2016-09-07T07:32:43.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="京东笔试题之幸运数字">
 <meta name="twitter:description" content="题目
@@ -220,6 +220,16 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-special">
+          <a href="/special" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-star"></i> <br />
+            
+            专题
           </a>
         </li>
       
@@ -361,7 +371,7 @@
 <p>第1位的规律（从1开始）是：01010101…..<br>第2位的规律是（从1+2开始）：00110011…..<br>第3位的规律是（从1+2+4开始）：00001111…..<br>第n位的规律是（从1+2+4+…+$2^{n-1}$开始）：$<br>\begin{array}{c}<br>    \underbrace{0\cdots 0}\\<br>    \textrm{n}\\<br>\end{array}\begin{array}{c}<br>    \underbrace{1\cdots 1}\\<br>    \textrm{n}\\<br>\end{array}\cdots<br>$</p>
 <p>…..</p>
 </blockquote>
-<p>还以13举例,将13-1得12，这样变成序号从0开始，<br>第1位：<br>$12 \% 2^1=0 &lt; \frac{2^1}{2}$，即该位在前半部分（0）,去除余数12-2=10作为下一位输入<br>第2位：<br>$10 \% 2^2=2 \geqslant \frac{2^2}{2}$，即该位在后半部分（1）,去除余数10-4=6作为下一位输入<br>第2位：<br>$6 \% 2^3=6 \geqslant \frac{2^3}{2}$即该位在后半部分（1）,$6&lt;2^3$，算法停止。</p>
+<p>还以13举例,将13-1得12，这样变成序号从0开始，<br>第1位：<br>$12 \% 2^1=0 &lt; \frac{2^1}{2}$，即该位在前半部分（0）,更新序号$12-2^1=10$作为下一位输入<br>第2位：<br>$10 \% 2^2=2 \geqslant \frac{2^2}{2}$，即该位在后半部分（1）,更新序号$10-2^2=6$作为下一位输入<br>第2位：<br>$6 \% 2^3=6 \geqslant \frac{2^3}{2}$即该位在后半部分（1）,序号$6&lt;2^3$，算法停止。</p>
 <p>逆序输出得到110，即“774”.</p>
 <p>代码略。</p>
 

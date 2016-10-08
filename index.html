@@ -394,6 +394,133 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/27/number_optimizition_chapter_3/" itemprop="url">
+                  《数值优化》学习笔记之第三章 线搜索方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-27T20:41:29+08:00" content="2016-09-27">
+              2016-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数值优化/" itemprop="url" rel="index">
+                    <span itemprop="name">数值优化</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/27/number_optimizition_chapter_3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/27/number_optimizition_chapter_3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>线搜索每一次迭代首先计算搜索方向$p_k$,然后计算在这个方向上移动的 距离$a_k$。迭代式如下：</p>
+<p>(1)$$x_{k+1}=x_k+a_kp_k$$<br>线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。<br>大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k<0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：
+(2)$$p_k = -B_k^{-1} \nabla f_k$$
+这里$B_k$是对称非奇异矩阵。在最速下降法中，$B_k$是单位矩阵。在牛顿方法中，$B_k$是Hessian矩阵$\nabla ^2 f(x_k)$。在拟牛顿方法中，$B_k$是Hessian矩阵的近似。当$P_k$定义为(2)式且$B_k$正定时，我们有：
+$$p_k^T \nabla f_k=-\nabla f^T_kb_k^{-1} \nabla f_k <0$$
+本节讨论如何选取方向和步长。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/27/number_optimizition_chapter_3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/09/algo-find-max-k/" itemprop="url">
                   寻找最大的K个数
                 </a>
@@ -711,129 +838,6 @@
 <p>首页详细地介绍了数据集的二进制格式，读取非常简单，要注意的是用大端模式，还有读取的图片的方向问题。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/07/mnist-read/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/07/number_optimizition_chapter_3/" itemprop="url">
-                  《数值优化》学习笔记之第二章 无约束最优化基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-07T15:21:34+08:00" content="2016-09-07">
-              2016-09-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/数值优化/" itemprop="url" rel="index">
-                    <span itemprop="name">数值优化</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/07/number_optimizition_chapter_3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/07/number_optimizition_chapter_3/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：<br>$$\underset{x}{\text{min}}f(x)$$</p>
-<p>其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。<br>通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x_2,…$的导数。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/07/number_optimizition_chapter_3/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

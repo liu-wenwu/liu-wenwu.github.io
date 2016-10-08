@@ -1,0 +1,738 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数值优化,学习笔记," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：$$\underset{x}{\text{min}}f(x)$$
+其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《数值优化》学习笔记之第二章 无约束最优化基础">
+<meta property="og:url" content="https://liu-wenwu.github.io/2016/09/07/number_optimizition_chapter_3/index.html">
+<meta property="og:site_name" content="文武的学习笔记">
+<meta property="og:description" content="前言在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：$$\underset{x}{\text{min}}f(x)$$
+其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x">
+<meta property="og:updated_time" content="2016-09-07T07:21:54.948Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《数值优化》学习笔记之第二章 无约束最优化基础">
+<meta name="twitter:description" content="前言在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：$$\underset{x}{\text{min}}f(x)$$
+其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://liu-wenwu.github.io/2016/09/07/number_optimizition_chapter_3/"/>
+
+  <title> 《数值优化》学习笔记之第二章 无约束最优化基础 | 文武的学习笔记 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">文武的学习笔记</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">格物致知 知行合一</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-special">
+          <a href="/special" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-star"></i> <br />
+            
+            专题
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《数值优化》学习笔记之第二章 无约束最优化基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-07T15:21:34+08:00" content="2016-09-07">
+              2016-09-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数值优化/" itemprop="url" rel="index">
+                    <span itemprop="name">数值优化</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/07/number_optimizition_chapter_3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/07/number_optimizition_chapter_3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在无约束优化中，我们依赖实变量来最小化目标函数。数学表达式为：<br>$$\underset{x}{\text{min}}f(x)$$</p>
+<p>其中$X \in R$ 是拥有$n \geqslant 1$个元素的实数向量，$f:\mathbb{R}^n \rightarrow \mathbb{R}$ 是光滑函数。<br>通常，我们对函数$f$缺乏全局的视角。我们所知道$f$的值或许只是一些它在点集$x_0,x_1,x_2,…$的导数。</p>
+<a id="more"></a>
+<h2 id="例子-最小二乘拟合"><a href="#例子-最小二乘拟合" class="headerlink" title="例子 最小二乘拟合"></a>例子 <code>最小二乘拟合</code></h2><h1 id="最优解的定义"><a href="#最优解的定义" class="headerlink" title="最优解的定义"></a>最优解的定义</h1><p>全局极小值的定义为：</p>
+<p>$$\text{点} x^° \text{是全局极小值,仅当} f(x^°) \leqslant f(x) , x \in \mathbb{R} $$</p>
+<p>由于我们关于$f$的知识通常只是局部的，因此全局极小值很难去求解。<br>我们无法确定$f$是否在算法无法采样的区域是否有急剧下降。大多数算法只能找到局部极小值。关于局部极小值的定义如下：<br>$$\text{点} x^° \text{是局部极小值,仅当存在}x^°\text{的邻域} \mathbb{N}使得f(x^°)\leqslant f(x) ,  x \in \mathbb{N}<br>$$<br>上述定义有时成为弱极小值，在上述情况下，加强约束条件，就变成严格极小值。<br>$$<br>f(x^°) &lt; f(x) ,  x \in \mathbb{N}   with   x \neq x^ °<br>$$</p>
+<h1 id="识别局部最小值"><a href="#识别局部最小值" class="headerlink" title="识别局部最小值"></a>识别局部最小值</h1><p>判断点$x^°$紧邻的点是不是有更小的值。当$f$是光滑函数时，很容易找到局部极小值。特别地，若$f$连续二阶可导，可以通过判断梯度$ \nabla f(X^°) $和Hessian矩阵$ \nabla ^2f(X^°) $。<br>研究光滑函数的数学工具是<code>泰勒定理</code>。这个定理是本书的核心。</p>
+<h2 id="定理2-1-泰勒定理"><a href="#定理2-1-泰勒定理" class="headerlink" title="定理2.1 泰勒定理"></a>定理2.1 泰勒定理</h2><p>假设$f:\mathbb{R}^n \rightarrow \mathbb{R}$是连续可导的，$p \in \mathbb{R}$，那么存在$t \in (0,1)$使<br>$$<br>f(x+p)=f(x)+ \nabla f(x+tp)^Tp<br>$$<br>如果$f$是二阶连续可导，有<br>$$<br>\nabla f(x+p)=\nabla f(x)+ \int_0^1{\nabla ^2 f(x+tp)pdt}<br>$$<br>所以可得<br>$$<br>f(x+p)=f(x)+ \nabla f(x)^Tp + \frac{1}{2}p^T\nabla ^2 f(x+tp)p<br>$$</p>
+<h2 id="定理2-2-一阶必要条件"><a href="#定理2-2-一阶必要条件" class="headerlink" title="定理2.2 一阶必要条件"></a>定理2.2 一阶必要条件</h2><p>如果$x^°$是极小值，在$x^°$的开邻域$f$连续光滑，那么$\nabla f(x^°)=0$。</p>
+<h2 id="定理2-3-二阶必要条件"><a href="#定理2-3-二阶必要条件" class="headerlink" title="定理2.3 二阶必要条件"></a>定理2.3 二阶必要条件</h2><p>如果$x^°$是极小值，$\nabla ^2 f$存在并且在$x^°$的开邻域连续光滑，那么$\nabla f(x^°)=0$、$\nabla ^2 f(x^°)$是半正定矩阵。</p>
+<h2 id="定理2-4-二阶充分条件"><a href="#定理2-4-二阶充分条件" class="headerlink" title="定理2.4 二阶充分条件"></a>定理2.4 二阶充分条件</h2><p>如果$\nabla f$是在$x^°$的开邻域是连续的，且$\nabla f(x^°)=0$，且$\nabla ^2 f(x^°)$是正定矩阵，那么$x^°$是严格极小值。</p>
+<h1 id="算法概述"><a href="#算法概述" class="headerlink" title="算法概述"></a>算法概述</h1><p>所有的无约束算法都需要使用者提供一个起点$x_0$，拥有数据集的使用者能够提供一个合理的估计初值。否则就需要算法通过系统性方法或任意的方式来选择起点。从$x_0$开始，优化算法产生一系列迭代$\{ x_k \}_{k=0}^\infty $，直到不能有任何改进或者以足够的精度逼近结果。<br>在决定迭代$x_k$的下一次移动时，算法会参考$f$在$x_k$的信息，可能还会用到更早的迭代$x_0,x_1,…,x_{k-1}$。算法使用这些信息能够找到比在$x_k$的函数值新的迭代值$x_{k+1}$。有两种基本的策略来从当前$x_k$计算到$x_{k+1}$的移动。</p>
+<h2 id="两种策略：线搜索和信任域"><a href="#两种策略：线搜索和信任域" class="headerlink" title="两种策略：线搜索和信任域"></a>两种策略：线搜索和信任域</h2><p>在线搜索方法中，算法在$x_k$迭代时，会选择一个方向$p_k$，使得新的迭代有更小的函数值。沿着$p_k$移动的距离近似为下面的寻找步长$\alpha$的一维最小化问题：<br>$$<br>\underset{\alpha &gt;0}{\text{min}}f(x_k+\alpha p_k)<br>$$</p>
+<p>第二种是信任域方法。通过构造模型函数$m_k$来收集$f$的信息，$m_k$在$x_k$附近的特性应和目标函数相似。因为模型$m_k$在离$x_k$较远的$x$处可能不是$f$好的近似。所以我们强制在$x_k$的某个区域来寻找$m_k$的极小值。换句话说，我们通过近似求解下列子问题来寻找候选步$p$：<br>$$<br>\underset{p}{\text{min}}  m_k(x_k+p) , x_k+p\text{在信任域内}<br>$$</p>
+<p>如果候选解不能产生$f$上的充分下降，可以得知信任域太大，需要缩小并重新求解。通常，信任域是定义为$<br>\lVert \textrm{p} \rVert _2\le \Delta<br>$的球，这里标量$\Delta$成为信任域半径。椭圆、盒子形的信任域也有使用。<br>模型$m_k$通常定义为二次方程：<br>$$<br>m_k(x_k+p)=f_k+p^T \nabla f_k +\frac{1}{2}p^TB_kp<br>$$<br>其中$f_k$，$\nabla f_k$，$B_k$分别是标量、向量、矩阵。$m_k$和$f$在$x_k$处一阶是相同的。$B_k$是Hessian矩阵或者它的近似。</p>
+<p>线搜索方法和信任域方法的区别就在计算方向和步长的次序上。<br>线搜索方法选择固定的方向$p_k$，然后确定一个合适的步长；而信任域方法首先选择最大的信任域半径，然后寻找满足距离约束的最大改进可能的方向和步子，如果步子被证明是不满意的，我们减小信任域半径，重新计算。</p>
+<h3 id="线搜索方法中的搜索方向"><a href="#线搜索方法中的搜索方向" class="headerlink" title="线搜索方法中的搜索方向"></a>线搜索方法中的搜索方向</h3><p>在线搜索方法中，最速下降方向$\nabla f_k$是明显的选择。它是在从$x_k$出发的所有下降很快的方向之一。证明如下：对于任意搜索方向$p$和步长因子$\alpha$，我们有<br>$$<br>f(x_k+\alpha p)=f(x_k)+\alpha p^T \nabla f_k,\text{subject to } \lVert \textrm{p} \rVert =1<br>$$</p>
+<p>$f$在$x_k$处沿着方向$p$的变化率简化成$\alpha$的系数，即$p^T \nabla f_k$。因此，单位方向$p$的最快下降方向是下列问题的解。<br>$$<br>\underset{p}{\text{min}}  p^T \nabla f_k ,\text{sunject to }\lVert p \rVert=1<br>$$</p>
+<p>所以有<br>$$<br>p^T\nabla f_k=\lVert p \rVert \lVert \nabla f_k \rVert cos \theta=\lVert \nabla f_k \rVert  cos \theta<br>$$<br>这里$\theta$是$p$和$\nabla f_k$的角度。显然，$cos \theta =-1$上式到达最小，<br>$$<br>p=-\frac{ \nabla f_k}{ \lVert \nabla f_k \rVert}<br>$$</p>
+<p>得证。<br><code>最速下降法</code>是$p_k=- \nabla f_k$的线搜索方法，它选择步长$\alpha _k$有多种方式，优点之一就是只用到了梯度，没有用到二阶导数。但是，这个算法在一些比较难的问题上极其地慢。<br>线搜索搜索方法可能使用区别于最速下降法的搜索方向。通常，在步长充分小时，与$- \nabla f_k$ 的角度小于$\frac {\pi}{2}$的方向都能保证$f$下降。</p>
+<p>另外一个最重要的搜索方是<code>牛顿方向</code>。这个方向采用二阶泰勒展开式来逼近$f(x_k+p)$<br>$$<br>f(x_k+p) \approx f_k +p^T \nabla f_k+ \frac{1}{2}p^T \nabla ^2 f_k  \overset{\textrm{def}}{=} m_k(p)<br>$$<br>假设$\nabla ^2 f_k$是正定的(<code>二阶充分条件</code>)，我们可以找到$p$使$m_k(p)$最小。令$\nabla m_k(p)=0$，可得牛顿方向：<br>$$<br>p^N_k=- \frac{\nabla  f_k }{\nabla ^2 f_k }<br>$$</p>
+<p>当$f(x_k+p)$和它的二次近似$m_k(p)$差别不大时，牛顿方向还是很可靠的。</p>
+<p><code>拟牛顿方向</code>可以替代牛顿方向，因为他不用不同计算Hessian矩阵，而且仍然拥有超线性下降速度。它使用近似矩阵$B_k$来替换Hessian矩阵，$B_k$会在每一次迭代中运用获得的知识来更新。</p>
+<p>我们在$x_{k+1}$处采用二次函数$m_{k+1}$来近似目标函数$f$<br>$$<br>m_{k+1}(p)=f_{k+1}+p^T \nabla f_{k+1} +\frac{1}{2}p^TB_{k+1}p<br>$$<br>如果我们有$\nabla m_{k+1}$和$\nabla f_{k+1}$在$x_k$和$x_{k+1}$处的值相同，那么可以认为是一个很好的近似。<br>当$p=0$时，两者相等；<br>当$p=-\alpha p_k$时，有<br>$$<br>\nabla m_{k+1}(-\alpha p_k)= \nabla f_{k+1} - \alpha B_{k+1}p_k=\nabla f_k<br>$$<br>进行移项，令$s_k=x_{k+1}-x_k$,$y_k=\nabla f_{k+1}-\nabla f_k$，我们可以得到割线方程<br>$$<br>B_{k+1}s_k=y_k<br>$$<br>因为$B_{k+1}$是正定的，所以我们可以得到曲率条件：<br>$$<br>s_k^TB_{k+1}s_k=s_k^T y_k&gt;0<br>$$<br>两个比较常用的更新$B_{k+1}$的方式是<code>SR1</code>和<code>BFGS</code>。</p>
+<p>SR1公式定义如下：<br>$$<br>B_{k+1}=B_k+\frac{(y_k - B_k s_k)(y_k - B_k s_k)^T}{(y_k - B_k s_k)^Ts_k}<br>$$</p>
+<p>BFGS公式定义如下：<br>$$<br>B_{k+1}=B_k-\frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k} + \frac{y_k y_k^T}{y_k^Ts_k}<br>$$</p>
+<p>$B_k$ 和 $B_{k+1}$在SR1中是秩为1的矩阵，在BFGS中是秩为2的矩阵。相同点都满足割线方程，都是对称矩阵。<br>拟牛顿搜索方向可以在牛顿方向上替换Hessian矩阵为$B_k$得到：<br>$$<br>p_k=-B_k^{-1} \nabla f_k<br>$$<br>一些拟牛顿的实现方法通过更新$B_k^{-1}$而不是$B_k$来避免分解计算。<br>如果有$H_k \overset{\textrm{def}}{=} B_k^{-1}$，那么在SR1和BFGS方程可以转化成：<br>$$<br>H_{k+1}=(I- \rho _k s_k y_k^T)H_k(I-\rho _k y_k s_k^T)+\rho s_k s_k^T,\rho _k=\frac{1}{y_k^Ts_k}<br>$$</p>
+<p>$p_k$可以通过$p_k=-H_k \nabla f$计算。</p>
+<p>最后一种搜索方向是<code>非线性共轭梯度法</code>，公式如下：<br>$$<br>p_k=-\nabla f(x_k)+\beta _k p_{k-1}<br>$$<br>这里$\beta _k$保证$p_k$和$p_{k+1}$是共轭的,共轭是在二次函数最小化中非常重要的概念。<br>共轭梯度法最初是用来求解$Ax=b$的线性方程组的，这里$A$是对称正定矩阵。求解线性系统等价于最小化如下的凸二次函数：<br>$$<br>\phi (x)=\frac{1}{2}x^T A x-b^Tx<br>$$<br>非线性共轭梯度法比最速下降法更有效且计算简单。它没有牛顿方法和拟牛顿方法的拟合速度快，但是不需要保存矩阵。</p>
+<h3 id="信任域方法中的模型"><a href="#信任域方法中的模型" class="headerlink" title="信任域方法中的模型"></a>信任域方法中的模型</h3><p>$$<br>m_k(x_k+p)=f_k+p^T \nabla f_k +\frac{1}{2}p^TB_kp<br>$$<br>如果令上式中的$B_k=0$，且定义信任域使用<code>欧几里得范数</code>，那么信任域子问题变成<br>$$<br>\underset{p}{\text{min}}   f_k +p^T \nabla f_k \quad \text{subject to } \lVert p \rVert \leqslant \varDelta _k<br>$$<br>那么解就是<br>$$<br>p_k=-\frac{\varDelta _k \nabla f_k}{\lVert \nabla f_k \rVert}<br>$$<br>这就是最速下降法上把步长设为信任域半径。<br>更有趣的信任域算法是将$B_k$设为Hessian矩阵$\nabla ^2 f_k$，那么就是信任域牛顿方法。如果$B_k$通过拟牛顿方法来近似，那么就是信任域拟牛顿方法</p>
+<h3 id="尺度问题"><a href="#尺度问题" class="headerlink" title="尺度问题"></a>尺度问题</h3><p>考虑<br>$$<br>f(x)=10^9 x_1^2 +x_2^2<br>$$<br>对于$x_1$对于小的变化非常敏感，而$x_2$则不是。解决方法是令$z=10^9 x_1$。一些算法例如最速下降法对于缩放是敏感的，而另一些，例如牛顿方法则不受影响。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本章介绍了两种选择步长和搜索方向的策略，即线搜索和信任域，两者主要区别是计算步长和搜索方向的步骤相反。对于搜索方向的选择，我们又有最速下降、牛顿、拟牛顿、非线性共轭梯度等方法。主要基础理论就是泰勒定理和矩阵相关知识。</p>
+<blockquote>
+<p>原创文章，转载请注明出处。<br>刘文武 2016年9月7日 于 电子科大航空航空学院</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="liu-wenwu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="liu-wenwu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数值优化/" rel="tag">#数值优化</a>
+          
+            <a href="/tags/学习笔记/" rel="tag">#学习笔记</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/07/number_optimizition_chapter_2/" rel="next" title="《数值优化》学习笔记之第二章 无约束最优化基础">
+                <i class="fa fa-chevron-left"></i> 《数值优化》学习笔记之第二章 无约束最优化基础
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/07/mnist-read/" rel="prev" title="MNIST手写数字二进制数据集的读取">
+                MNIST手写数字二进制数据集的读取 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/07/number_optimizition_chapter_3/"
+           data-title="《数值优化》学习笔记之第二章 无约束最优化基础" data-url="https://liu-wenwu.github.io/2016/09/07/number_optimizition_chapter_3/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="liu-wenwu" />
+          <p class="site-author-name" itemprop="name">liu-wenwu</p>
+          <p class="site-description motion-element" itemprop="description">我就是我，不一样的烟火</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liu-wenwu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子-最小二乘拟合"><span class="nav-number">1.1.</span> <span class="nav-text">例子 最小二乘拟合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最优解的定义"><span class="nav-number">2.</span> <span class="nav-text">最优解的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#识别局部最小值"><span class="nav-number">3.</span> <span class="nav-text">识别局部最小值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定理2-1-泰勒定理"><span class="nav-number">3.1.</span> <span class="nav-text">定理2.1 泰勒定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理2-2-一阶必要条件"><span class="nav-number">3.2.</span> <span class="nav-text">定理2.2 一阶必要条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理2-3-二阶必要条件"><span class="nav-number">3.3.</span> <span class="nav-text">定理2.3 二阶必要条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理2-4-二阶充分条件"><span class="nav-number">3.4.</span> <span class="nav-text">定理2.4 二阶充分条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法概述"><span class="nav-number">4.</span> <span class="nav-text">算法概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种策略：线搜索和信任域"><span class="nav-number">4.1.</span> <span class="nav-text">两种策略：线搜索和信任域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线搜索方法中的搜索方向"><span class="nav-number">4.1.1.</span> <span class="nav-text">线搜索方法中的搜索方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信任域方法中的模型"><span class="nav-number">4.1.2.</span> <span class="nav-text">信任域方法中的模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尺度问题"><span class="nav-number">4.1.3.</span> <span class="nav-text">尺度问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liu-wenwu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liuwenwu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+  
+
+</body>
+</html>

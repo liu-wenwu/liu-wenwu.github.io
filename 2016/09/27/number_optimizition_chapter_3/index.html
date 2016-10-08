@@ -85,18 +85,18 @@
 
 
 <meta name="description" content="线搜索每一次迭代首先计算搜索方向$p_k$,然后计算在这个方向上移动的 距离$a_k$。迭代式如下：
-(1)$$x_{k+1}=x_k+a_kp_k$$线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&amp;lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：(2)$$p_k =-B_">
+(1)$$x_{k+1}=x_k+a_kp_k$$线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&amp;lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：(2)$$$p_k =-B">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《数值优化》学习笔记之第三章 线搜索方法">
 <meta property="og:url" content="https://liu-wenwu.github.io/2016/09/27/number_optimizition_chapter_3/index.html">
 <meta property="og:site_name" content="文武的学习笔记">
 <meta property="og:description" content="线搜索每一次迭代首先计算搜索方向$p_k$,然后计算在这个方向上移动的 距离$a_k$。迭代式如下：
-(1)$$x_{k+1}=x_k+a_kp_k$$线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&amp;lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：(2)$$p_k =-B_">
-<meta property="og:updated_time" content="2016-10-08T09:08:41.466Z">
+(1)$$x_{k+1}=x_k+a_kp_k$$线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&amp;lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：(2)$$$p_k =-B">
+<meta property="og:updated_time" content="2016-10-08T09:10:19.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《数值优化》学习笔记之第三章 线搜索方法">
 <meta name="twitter:description" content="线搜索每一次迭代首先计算搜索方向$p_k$,然后计算在这个方向上移动的 距离$a_k$。迭代式如下：
-(1)$$x_{k+1}=x_k+a_kp_k$$线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&amp;lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：(2)$$p_k =-B_">
+(1)$$x_{k+1}=x_k+a_kp_k$$线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&amp;lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：(2)$$$p_k =-B">
 
 
 
@@ -336,7 +336,7 @@
 
       
         <p>线搜索每一次迭代首先计算搜索方向$p_k$,然后计算在这个方向上移动的 距离$a_k$。迭代式如下：</p>
-<p>(1)$$x_{k+1}=x_k+a_kp_k$$<br>线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。<br>大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：<br>(2)<br>$<br>$p_k =-B_k^{-1}\nabla f_k<br>$$<br>这里$B_k$是对称非奇异矩阵。在最速下降法中，$B_k$是单位矩阵。在牛顿方法中，$B_k$是Hessian矩阵$\nabla ^2 f(x_k)$。在拟牛顿方法中，$B_k$是Hessian矩阵的近似。当$P_k$定义为(2)式且$B_k$正定时，我们有：</p>
+<p>(1)$$x_{k+1}=x_k+a_kp_k$$<br>线搜索方法的成功依赖于能否有效选取方向$p_k$和步长$a_k$。<br>大多数线搜索方法需要$p_k$是下降方向，即$p_k^T \nabla f_k&lt;0$，这个属性能够保证$f$沿着这个方向减小。搜索方向通常有如下形式：<br>(2)<br>$$<br>$p_k =-B_k^{-1}\nabla f_k<br>$$<br>这里$B_k$是对称非奇异矩阵。在最速下降法中，$B_k$是单位矩阵。在牛顿方法中，$B_k$是Hessian矩阵$\nabla ^2 f(x_k)$。在拟牛顿方法中，$B_k$是Hessian矩阵的近似。当$P_k$定义为(2)式且$B_k$正定时，我们有：</p>
 <p>$$<br>p_k^T \nabla f_k=-\nabla f^T_kb_k^{-1} \nabla f_k &lt;0<br>$$</p>
 <p>本节讨论如何选取方向和步长。<br><a id="more"></a></p>
 <h1 id="1-步长"><a href="#1-步长" class="headerlink" title="1. 步长"></a>1. 步长</h1><p>定义全局最小值：<br>$$\phi(a)=f(x_k + a p_k),a&gt;0$$<br>典型的线搜索方法会实验一系列$a$的候选值，当特定的条件满足时就接受某个值。</p>
